@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+/*400 700*/
+:root {
+    /*Primary*/
+    --Bright-Blue: hsl(220, 98%, 61%);
+    --Check-Background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    /* --Check-Background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%); */
+    --FontSize: 18px;
+
+    /* light theme*/
+
+    --Very-Light-Gray: hsl(0, 0%, 98%);
+    --Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
+    --Light-Grayish-Blue: hsl(233, 11%, 84%);
+    --Dark-Grayish-Blue: hsl(236, 9%, 61%);
+    --Very-Dark-Grayish-Blue: hsl(235, 19%, 35%);
+
+    /*Dark Theme*/
+
+    --Primary-Font-color: hsl(0, 0%, 98%);
+    --Secundary-Font-color: hsl(234, 11%, 52%);
+    --Todo-li-Font-color: hsl(234, 39%, 85%);
+    --Body-bg: hsl(235, 21%, 11%);
+    --Todo-bg: hsl(235, 24%, 19%);
+    --Border-checkBox: hsl(234, 11%, 52%);
+    --Border-bottom-todo: hsl(233, 14%, 35%);
+
+    --Very-Dark-Desaturated-Blue: hsl(235, 24%, 19%);
+    --Light-Grayish-Blue: hsl(234, 39%, 85%);
+    --Light-Grayish-Blue-hover: hsl(236, 33%, 92%);
+    --Dark-Grayish-Blue: hsl(234, 11%, 52%);
+    --Very-Dark-Grayish-Blue2: hsl(233, 14%, 35%);
+    --Very-Dark-Grayish-Blue: hsl(237, 14%, 26%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans';
+    transition: .8s ease;
+}
+
+body {
+    background-color: var(--Body-bg);
+    overflow: hidden;
+
+    & .background-img {
+        position: absolute;
+        background-image: url('./images/bg-mobile-dark.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 200px;
+        z-index: -1;
+        transition: .6s ease;
+    }
+}
+
+body.light {
+    --Primary-Font-color: hsl(0, 0%, 98%);
+    --Secundary-Font-color: hsl(236, 9%, 61%);
+    --Todo-li-Font-color: hsl(235, 19%, 35%);
+    --Body-bg: hsl(236, 33%, 92%);
+    --Todo-bg: hsl(0, 0%, 98%);
+    --Border-checkBox: hsl(233, 11%, 84%);
+    --Border-bottom-todo: hsl(233, 11%, 84%);
+    & .background-img {
+        background-image: url('./images/bg-mobile-light.jpg');
+    }
+}
+
+
+
+main {
+    z-index: 1;
+    padding: 50px 30px;
+}
+
+main header {
+    display: flex;
+    justify-content: space-between;
+}
+
+main h1 {
+    color: var(--Primary-Font-color);
+    letter-spacing: 10px;
+}
+
+.switch-theme {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+
+    &.light {
+        & img {
+            content: url('./images/icon-moon.svg');
+        }
+    }
+}
+
+.todo-section {
+    margin-top: 25px;
+    position: relative;
+}
+
+.add-todo-container {
+    background-color: var(--Todo-bg);
+    height: 45px;
+    border-radius: 5px;
+    display: flex;
+}
+
+/*checkbox custom style*/
+.container-checkbox {
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid var(--Border-checkBox);
+    transition: border 0s ease;
+
+    &:hover {
+        border: double 2px transparent;
+        border-radius: 50%;
+        background-image: linear-gradient(var(--Todo-bg), var(--Todo-bg)), var(--Check-Background);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        display: inline-block;
+    }
+}
+
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked~.checkmark {
+    background-image: var(--Check-Background);
+    border: none;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: url('./images/icon-check.svg');
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+    left: 7px;
+}
+
+/**/
+
+
+.add-todo-container>input {
+    background-color: transparent;
+    outline: none;
+    padding-left: 55px;
+    border: none;
+    width: 100%;
+    color: var(--Todo-li-Font-color);
+    font-size: var(--FontSize);
+
+    &::placeholder {
+        color: var(--Secundary-Font-color);
+    }
+}
+
+.todo-list {
+    margin-top: 20px;
+    list-style-type: none;
+    color: var(--Todo-li-Font-color);
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-list li {
+    width: 100%;
+    min-height: 45px;
+    background-color: var(--Todo-bg);
+    align-items: center;
+    border-bottom: 1px solid var(--Border-bottom-todo);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    transition: margin 0.25s;
+    transition: background-color 0.8s ease;
+
+    &.completed {
+        color: var(--Secundary-Font-color);
+        text-decoration: line-through;
+    }
+
+    &.hidden {
+        display: none;
+    }
+
+    &.dragging {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0) scale(1.1);
+        pointer-events: none;
+        z-index: 999;
+    }
+
+    &.item-animation {
+        animation: scaleitem 0.1s ease-in-out;
+    }
+    
+    @keyframes scaleitem {
+        from { 
+            transform: translate(-50%, 0) scale(1);
+        }
+    }
+
+    &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+}
+
+.todo-list p {
+    padding-left: 55px;
+    padding-top: 15px;
+    word-break: break-word;
+}
+
+.counts-container {
+    background-color: var(--Todo-bg);
+    color: var(--Secundary-Font-color);
+    display: flex;
+    height: 45px;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0px 5px 27px -7px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 5px 27px -7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 5px 27px -7px rgba(0, 0, 0, 0.3);
+
+    & button {
+        background-color: transparent;
+        border: none;
+        color: var(--Secundary-Font-color);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--Todo-li-Font-color);
+        }
+    }
+}
+
+.actions-container {
+    margin-top: 25px;
+    height: 45px;
+    background-color: var(--Todo-bg);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    border-radius: 5px;
+
+    & button {
+        background-color: transparent;
+        border: none;
+        color: var(--Secundary-Font-color);
+        cursor: pointer;
+        font-weight: 700;
+
+        &:hover {
+            color: var(--Todo-li-Font-color);
+        }
+
+        &.active {
+            color: var(--Bright-Blue);
+        }
+    }
+}
+
+.advice-msg {
+    margin-top: 50px;
+    text-align: center;
+    color: var(--Secundary-Font-color);
+}
+
+@media (min-width: 1000px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .background-img {
+            background-image: url('./images/bg-desktop-dark.jpg');
+        }
+    }
+
+    body.light {
+        & .background-img {
+            background-image: url('./images/bg-desktop-light.jpg');
+        }
+    }
+
+    main {
+        width: 600px;
+    }
+
+    .todo-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .add-todo-container,
+    .todo-list {
+        width: 100%;
+    }
+
+    .actions-container {
+        width: fit-content;
+        z-index: 1;
+        margin-top: 0;
+    }
+
+    .counts-container {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+}
+
+/*todo
+transition more 1s color todo
+*/
